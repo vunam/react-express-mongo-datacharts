@@ -15,7 +15,7 @@ var domains = mongoose.model('domains', domainSchema);
 var recordSchema = new mongoSchema ({
     "_id" : Number,
     "parent" : Number,
-    "date" : String,
+    "date" : Date,
     "score" : String
 });
 

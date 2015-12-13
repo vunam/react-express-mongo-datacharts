@@ -27,6 +27,10 @@ class DataActions {
     return data;
   }
 
+  setCurrentDomain(data) {
+    return data;
+  }
+
 }
 
 module.exports = Alt.createActions(DataActions);

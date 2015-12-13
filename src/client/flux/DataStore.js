@@ -6,9 +6,9 @@ class DataStore {
   constructor() {
 
     this.bindActions(DataActions);
-    this.current_domain = null;
     this.domains = [];
     this.records = [];
+    this.current_domain = null;
   }
 
   onFetchDomains() {
@@ -24,7 +24,11 @@ class DataStore {
   }
 
   onFetchRecordsSuccess(data) {
-    this.domains = data;
+    this.records = data;
+  }
+
+  onSetCurrentDomain(data) {
+    this.current_domain = data;
   }
 
 }

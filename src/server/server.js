@@ -40,9 +40,8 @@ app.get('/get_records/:domain_id', function(req,res){
 // Routes
 
 app.get('/json', function(req,res){
-
 	var text = fs.readFileSync('./marketintel.json').toString();
-	
+
 	res.header("Access-Control-Allow-Origin", "*");
 	updateCollections(JSON.parse(text).marketIntel);
 
