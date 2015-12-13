@@ -1,4 +1,5 @@
 var express = require('express'),
+ 	 request = require('superagent'),
 	 fs = require('fs'),
 	 db = require("./database"),
  	 _ = require('underscore');
@@ -12,11 +13,14 @@ App should always connect with server api/db for the best performance.
 
 */
 
+
 // Routes
 
 app.get('/', function(req,res){
 	res.send('works!');
 });
+
+// Json object for test purposes
 
 app.get('/json', function(req,res){
 
@@ -24,9 +28,14 @@ app.get('/json', function(req,res){
    res.setHeader('Content-Type', 'application/json');
 	res.header("Access-Control-Allow-Origin", "*");
 	updateCollections(JSON.parse(text).marketIntel);
-	res.status(200).send(text);
+
+	//Simulate the current API
+	(Math.random() > 0.7) ? res.status(500).send('{}') : res.status(200).send(text);
 
 });
+
+
+// API
 
 app.get('/get_domains', function(req,res){
 	db.domains.find({},function(err,data){
@@ -45,10 +54,28 @@ app.get('/get_records/:domain_id', function(req,res){
 });
 
 app.listen(3000, function () {
-  console.log('Server listening on port 3000');
+  	console.log('Server listening on port 3000');
+
+	//This should be done daily with setInterval after midnight.
+ 	fetchScores (0); 
 });
 
+
 // Functions
+
+function fetchScores (retry) {
+	request
+   .get('http://localhost:3000/json')
+   .end( function (err, res) {
+     	if(res.status !== 200 && retry < 20)
+       	setTimeout( function () {
+       		retry++;
+         	fetchScores( retry );
+      	}, 3000);
+    	else ( res.status === 200) 
+    		updateCollections(res.body)
+   });
+}
 
 function updateCollections (data) {
 	_.each(data, function(dVal, dKey) {
