@@ -19,7 +19,7 @@ var recordSchema = new mongoSchema ({
     "score" : String
 });
 
-var records = mongoose.model('records', domainSchema);
+var records = mongoose.model('records', recordSchema);
 
 module.exports = {
 	domains : domains,
