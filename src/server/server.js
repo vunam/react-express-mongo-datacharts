@@ -14,32 +14,13 @@ App should always connect with server api/db for the best performance.
 */
 
 
-// Routes
-
-app.get('/', function(req,res){
-	res.send('works!');
-});
-
-// Json object for test purposes
-
-app.get('/json', function(req,res){
-
-	var text = fs.readFileSync('./marketintel.json').toString();
-   res.setHeader('Content-Type', 'application/json');
-	res.header("Access-Control-Allow-Origin", "*");
-	updateCollections(JSON.parse(text).marketIntel);
-
-	//Simulate the current API
-	(Math.random() > 0.7) ? res.status(500).send('{}') : res.status(200).send(text);
-
-});
-
-
 // API
 
 app.get('/get_domains', function(req,res){
 	db.domains.find({},function(err,data){
 		var response = err ? {"error" : true,"message" : "Error fetching data"} : {"error" : false,"message" : data}; 
+		
+		res.header("Access-Control-Allow-Origin", "*");
 	   res.json(response);
 	});
 });
@@ -49,8 +30,25 @@ app.get('/get_records/:domain_id', function(req,res){
 	console.log(domain_id);
 	db.records.find({ domain: domain_id },function(err,data){
 		var response = err ? {"error" : true,"message" : "Error fetching data"} : {"error" : false,"message" : data}; 
+
+		res.header("Access-Control-Allow-Origin", "*");
 	   res.json(response);
 	});
+});
+
+
+// Routes
+
+app.get('/json', function(req,res){
+
+	var text = fs.readFileSync('./marketintel.json').toString();
+	
+	res.header("Access-Control-Allow-Origin", "*");
+	updateCollections(JSON.parse(text).marketIntel);
+
+	//Simulate the current API  for test purposes
+	(Math.random() > 0.7) ? res.status(500).send('{}') : res.status(200).send(text);
+
 });
 
 app.listen(3000, function () {
