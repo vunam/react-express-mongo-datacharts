@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import DataActions from '../flux/DataActions';
 import DataStore from '../flux/DataStore';
-
 import _ from "underscore";
-
+import ScoreChart from "./scorechart";
 
 export default class Html extends Component {
 
@@ -31,32 +30,23 @@ export default class Html extends Component {
 		return(
 			<div>
 				<select ref={(c) => this._select = c} onChange={this.handleChangeDomains.bind(this)}>
+                    <option selected="selected" disabled="disabled">Choose a domain</option>
 					{domains.map(function(val, i) {
                 	return <option value={val._id} key={i}>{val.name}</option>;
               	})}
 				</select>
+				<ScoreChart chartData={records} />
 			</div>
 		)
 	}
 
 	onChange() {
-  		this.setState(DataStore.getState())
+  		this.setState(DataStore.getState());
 	}
 
 	handleChangeDomains() {
     	DataActions.setCurrentDomain(this._select.value);
     	DataActions.fetchRecords(this._select.value);
-	}
-
-	convertRecords() {
-		var records = this.state.records;
-		console.log(records)
-		return [{
-        value: 300,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    }];
 	}
 	
 }
