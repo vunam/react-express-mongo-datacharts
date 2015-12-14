@@ -3,6 +3,7 @@ import DataActions from '../flux/DataActions';
 import DataStore from '../flux/DataStore';
 import _ from "underscore";
 import ScoreChart from "./scorechart";
+import ScoreTable from "./scoretable";
 
 export default class Html extends Component {
 
@@ -19,26 +20,27 @@ export default class Html extends Component {
 
 	render() {
       require("../style/style.less");
+
       var scoreChart = null;
+      var scoreTable = null;
 
 		let {domains, current_domain, records} = this.state;
 
-		if( domains.length && records.length )
+		if( domains.length && records.length ){
 			scoreChart = <ScoreChart chartData={records} />;
+			scoreTable = <ScoreTable chartData={records} />;
+		}
 
 		return (
 			<div>
-				<div className="ldn">
-					Waiting for API...
-				</div>
 				<div className="cnt">
 					<div className="inn-hed">
 						<h1>Ayima test tool</h1>
 					</div>
-					<div className="inn-bod">
+					<div className="inn-chart">
 
 						<label>Please select a domain</label>
-						
+
 						<br/>
 
 						<select ref={(c) => this._select = c} onChange={this.handleChangeDomains.bind(this)}>
@@ -52,9 +54,13 @@ export default class Html extends Component {
 
 						{scoreChart}
 
+
 					</div>
+
+					{scoreTable}
+
 					<div className="inn-fot">
-						Copyright 2015
+						Hope you like it :-)
 					</div>
 				</div>
 			</div>
