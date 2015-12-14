@@ -6,4 +6,4 @@ Here's the application for storing + displaying data from a slow API. The source
 
 ## Thoughts
 
-The reason why I built the project this way is because I think this would be the best approach if the project would grew with more data, users and functionality. The easiest way was to built a proxy api, which would be enough for the requirements. But I think relaying the API is a bad practice and it's not necessary since the data is added daily and we need to store the data anyway so several API calls.
+It took me 4-5 hours to complete. The fastest way was to built a proxy api, which would be enough for the requirements, but the reason why I built the project this way is because I think this would be the best approach if the project would grew with more data, users and functionality. I think relaying the API is a bad practice and it's not necessary since the data is added daily and we need to store the data anyway.
