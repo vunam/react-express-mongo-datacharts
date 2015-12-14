@@ -27,7 +27,7 @@ app.get('/get_domains', function(req,res){
 
 app.get('/get_records/:domain_id', function(req,res){
 	var domain_id = req.params.domain_id;
-	db.records.find({ domain: domain_id }).sort('date', -1).execFind(function(err,data){
+	db.records.find({ domain: domain_id }).sort({'date': 1}).exec(function(err,data){
 		var response = err ? {"error" : true,"message" : "Error fetching data"} : {"error" : false,"message" : data}; 
 
 		res.header("Access-Control-Allow-Origin", "*");
