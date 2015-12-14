@@ -1,10 +1,11 @@
+/* This is where our data get's initialized and stored. */
+
 import Alt from '../alt';
 import DataActions from './DataActions';
 
 class DataStore {
 
   constructor() {
-
     this.bindActions(DataActions);
     this.domains = [];
     this.records = [];

@@ -1,3 +1,5 @@
+/* Our table component */
+
 import React, {Component} from 'react';
 
 export default class ScoreTable extends Component {

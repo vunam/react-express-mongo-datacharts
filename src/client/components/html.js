@@ -1,7 +1,10 @@
+/* Our main component */
+
 import React, {Component} from 'react';
 import DataActions from '../flux/DataActions';
 import DataStore from '../flux/DataStore';
 import _ from "underscore";
+
 import ScoreChart from "./scorechart";
 import ScoreTable from "./scoretable";
 
@@ -35,32 +38,37 @@ export default class Html extends Component {
 			<div>
 				<div className="cnt">
 					<div className="inn-hed">
+
 						<h1>Ayima test tool</h1>
+
 					</div>
 					<div className="inn-chart">
 
-						<label>Please select a domain</label>
+						<div className="slc">
 
-						<br/>
+							<label>Please select a domain</label><br/>
 
-						<select ref={(c) => this._select = c} onChange={this.handleChangeDomains.bind(this)}>
-							{domains.map(function(val, i) {
-		                	return <option value={val._id} key={i}>{val.name}</option>;
-		              	})}
-						</select>
+							<select ref={(c) => this._select = c} onChange={this.handleChangeDomains.bind(this)}>
+								<option selected disabled hidden value=''></option>
 
-						<br/>
-						<br/>
+								{domains.map(function(val, i) {
+			                	return <option value={val._id} key={i}>{val.name}</option>;
+			              	})}
+
+							</select>
+
+						</div>
 
 						{scoreChart}
-
 
 					</div>
 
 					{scoreTable}
 
 					<div className="inn-fot">
+
 						Hope you like it :-)
+
 					</div>
 				</div>
 			</div>

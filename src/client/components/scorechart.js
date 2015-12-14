@@ -1,3 +1,5 @@
+/* Our chart component */
+
 import React, {Component} from 'react';
 import _ from "underscore";
 
@@ -39,7 +41,6 @@ export default class ScoreChart extends Component {
 			dates.push( (date.getMonth()+1) + ' - '+date.getDate() );
 			scores.push(Number(val.score));
 		});
-
 
 		return {
 			labels: dates,
