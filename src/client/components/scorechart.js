@@ -4,9 +4,7 @@ import _ from "underscore";
 var LineChart = require("react-chartjs").Line;
 
 var options = {
-    scaleShowGridLines : true,
-    scaleGridLineColor : "rgba(0,0,0,.05)",
-    scaleGridLineWidth : 1,
+    scaleShowGridLines : false,
     scaleShowHorizontalLines: true,
     scaleShowVerticalLines: true,
     bezierCurve : true,
@@ -23,9 +21,13 @@ var options = {
 export default class ScoreChart extends Component {
 
 	render() {
-		var scores = this.convertRecords(this.props.chartData);
+        var height = 0;
+        var scores = this.convertRecords(this.props.chartData);
 
-		return <LineChart data={scores} options={options} width="600" height="300" />
+        if( this.props.chartData.length > 0 )
+            height = 300;
+
+		return <LineChart data={scores} options={options} width="740" height={height} />
 	}
 
 	convertRecords(records) {
@@ -42,10 +44,10 @@ export default class ScoreChart extends Component {
 		return {
 			labels: dates,
 			datasets: [{
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
+            fillColor: "rgba(228,78,64,0.9)",
+            strokeColor: "#b6322d",
+            pointColor: "#fff",
+            pointStrokeColor: "#b6322d",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
             data: scores

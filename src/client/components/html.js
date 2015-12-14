@@ -48,6 +48,7 @@ export default class Html extends Component {
 						</select>
 
 						<br/>
+						<br/>
 
 						{scoreChart}
 
