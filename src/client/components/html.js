@@ -19,24 +19,43 @@ export default class Html extends Component {
 
 	render() {
       require("../style/style.less");
+      var scoreChart = null;
+
 		let {domains, current_domain, records} = this.state;
 
+		if( domains.length && records.length )
+			scoreChart = <ScoreChart chartData={records} />;
 
-		if( !domains.length || ( !records.length && current_domain !== null ) )
-			return (
-				<div>
-					Loading...
-				</div>
-				)
-
-		return(
+		return (
 			<div>
-				<select ref={(c) => this._select = c} onChange={this.handleChangeDomains.bind(this)}>
-					{domains.map(function(val, i) {
-                	   return <option value={val._id} key={i}>{val.name}</option>;
-              	    })}
-				</select>
-				<ScoreChart chartData={records} />
+				<div className="ldn">
+					Waiting for API...
+				</div>
+				<div className="cnt">
+					<div className="inn-hed">
+						<h1>Ayima test tool</h1>
+					</div>
+					<div className="inn-bod">
+
+						<label>Please select a domain</label>
+						
+						<br/>
+
+						<select ref={(c) => this._select = c} onChange={this.handleChangeDomains.bind(this)}>
+							{domains.map(function(val, i) {
+		                	return <option value={val._id} key={i}>{val.name}</option>;
+		              	})}
+						</select>
+
+						<br/>
+
+						{scoreChart}
+
+					</div>
+					<div className="inn-fot">
+						Copyright 2015
+					</div>
+				</div>
 			</div>
 		)
 	}
@@ -46,11 +65,10 @@ export default class Html extends Component {
 	}
 
 	handleChangeDomains() {
-        var val = this._select.value;
-        if(val){
-        	DataActions.setCurrentDomain(val);
-        	//DataActions.fetchRecords(val);
-        }
+	   var val = this._select.value;
+	   if (val)
+	      DataActions.setCurrentDomain(val);
 	}
+
 	
 }
