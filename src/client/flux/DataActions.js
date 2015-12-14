@@ -28,6 +28,7 @@ class DataActions {
   }
 
   setCurrentDomain(data) {
+    this.fetchRecords(data);
     return data;
   }
 

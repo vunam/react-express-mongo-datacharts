@@ -18,7 +18,9 @@ export default class Html extends Component {
 	}
 
 	render() {
+      require("../style/style.less");
 		let {domains, current_domain, records} = this.state;
+
 
 		if( !domains.length || ( !records.length && current_domain !== null ) )
 			return (
@@ -30,10 +32,9 @@ export default class Html extends Component {
 		return(
 			<div>
 				<select ref={(c) => this._select = c} onChange={this.handleChangeDomains.bind(this)}>
-                    <option selected="selected" disabled="disabled">Choose a domain</option>
 					{domains.map(function(val, i) {
-                	return <option value={val._id} key={i}>{val.name}</option>;
-              	})}
+                	   return <option value={val._id} key={i}>{val.name}</option>;
+              	    })}
 				</select>
 				<ScoreChart chartData={records} />
 			</div>
@@ -45,8 +46,11 @@ export default class Html extends Component {
 	}
 
 	handleChangeDomains() {
-    	DataActions.setCurrentDomain(this._select.value);
-    	DataActions.fetchRecords(this._select.value);
+        var val = this._select.value;
+        if(val){
+        	DataActions.setCurrentDomain(val);
+        	//DataActions.fetchRecords(val);
+        }
 	}
 	
 }
